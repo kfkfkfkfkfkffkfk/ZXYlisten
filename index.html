@@ -212,7 +212,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'In
 
 /* ─── PIN LOCK SCREEN ─── */
 #lock-screen{position:fixed;inset:0;z-index:990;background:rgba(0,0,0,.97);backdrop-filter:blur(30px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px}
-#lock-screen.active{display:flex}
+#lock-screen.active{display:flex !important}
 #lock-logo-area{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:8px}
 #lock-logo-title{font-family:'Orbitron',monospace;font-size:22px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,#fff,#bf5af2,#ff3757);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 #lock-sub{font-size:10px;color:rgba(255,255,255,.3);font-family:'Orbitron',monospace;letter-spacing:2px}
@@ -274,11 +274,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'In
 /* ─── OFFLINE BANNER ─── */
 #offline-banner{position:fixed;top:0;left:0;right:0;z-index:980;background:rgba(255,150,0,.9);color:#000;font-family:'Orbitron',monospace;font-size:9px;letter-spacing:1.5px;padding:8px;text-align:center;display:none;backdrop-filter:blur(10px)}
 #offline-banner.show{display:block}
-
-/* ─── RESIZE CURSOR FIX ─── */
-#bar-resize-handle{position:absolute;left:0;top:0;bottom:0;width:10px;cursor:ew-resize;z-index:20;display:flex;align-items:center;justify-content:center}
-#bar-resize-handle::after{content:'';width:2px;height:22px;background:rgba(191,90,242,.0);border-radius:1px;transition:background .2s}
-#player-bar:hover #bar-resize-handle::after{background:rgba(191,90,242,.4)}
 
 /* ─── ACCOUNT EDIT ─── */
 .acct-edit-row{display:flex;gap:6px;align-items:center;margin-bottom:6px}
@@ -1279,21 +1274,18 @@ function renderFreqList(){
 
 function _renderFreqs(reqs){
   const list=document.getElementById('freq-list');
-  if(!reqs.length){list.innerHTML='<div style="padding:10px 14px;font-size:10px;color:rgba(255,255,255,.25);font-family:\'Orbitron\',monospace;letter-spacing:1px">NO PENDING REQUESTS</div>';return;}
-  list.innerHTML=reqs.map(r=>`
-    <div class="freq-item">
-      <div class="freq-avatar">${(r.fromName||r.from||'?')[0].toUpperCase()}</div>
-      <div class="freq-info">
-        <div class="freq-name">${r.fromName||'Unknown'}</div>
-        <div class="freq-email">${r.from}</div>
-      </div>
-      <div class="freq-actions">
-        <button class="freq-accept" onclick="acceptFriendReq('${r.id}','${r.from}','${(r.fromName||'').replace(/'/g,"\\'")}')">ACCEPT</button>
-        <button class="freq-decline" onclick="declineFriendReq('${r.id}')">✕</button>
-      </div>
-    </div>`).join('');
+  if(!reqs.length){list.innerHTML='<div style="padding:10px 14px;font-size:10px;color:rgba(255,255,255,.25);font-family:Orbitron,monospace;letter-spacing:1px">NO PENDING REQUESTS</div>';return;}
+  list.innerHTML='';
+  reqs.forEach(r=>{
+    const item=document.createElement('div');item.className='freq-item';
+    item.innerHTML='<div class="freq-avatar">'+((r.fromName||r.from||'?')[0].toUpperCase())+'</div>'
+      +'<div class="freq-info"><div class="freq-name">'+(r.fromName||'Unknown')+'</div><div class="freq-email">'+r.from+'</div></div>'
+      +'<div class="freq-actions"><button class="freq-accept">ACCEPT</button><button class="freq-decline">✕</button></div>';
+    item.querySelector('.freq-accept').onclick=()=>acceptFriendReq(r.id,r.from,r.fromName||'');
+    item.querySelector('.freq-decline').onclick=()=>declineFriendReq(r.id);
+    list.appendChild(item);
+  });
 }
-
 function updateReqBadge(n){
   const b=document.getElementById('req-count-badge');
   if(n>0){b.style.display='flex';b.textContent=n;}else{b.style.display='none';}
@@ -1365,26 +1357,20 @@ function renderConvoList(data) {
   }
   empty.style.display = 'none';
   const sorted = keys.map(k => data[k]).sort((a,b) => (b.lastTime||0) - (a.lastTime||0));
-  let totalUnread = 0;
-  list.innerHTML = sorted.map(c => {
-    totalUnread += (c.unread || 0);
-    const initial = (c.name||'?')[0].toUpperCase();
+  list.innerHTML = '';
+  sorted.forEach(c => {
+    const div = document.createElement('div');
+    div.className = 'msg-convo-item' + (currentConvoId === c.id ? ' active-convo' : '');
+    const lastMsg = (c.lastMsg || '').substring(0, 40) || 'No messages yet';
     const time = c.lastTime ? new Date(c.lastTime).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '';
-    return `<div class="msg-convo-item${currentConvoId===c.id?' active-convo':''}" onclick="openChat('${c.id}','${(c.name||'').replace(/'/g,"\\'")}','${(c.email||'').replace(/'/g,"\\'")}')">
-      <div class="msg-avatar">${initial}</div>
-      <div class="msg-convo-info">
-        <div class="msg-convo-name">${c.name||'Unknown'}</div>
-        <div class="msg-convo-preview">${c.lastMsg||'No messages yet'}</div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-        <span class="msg-convo-time">${time}</span>
-        ${c.unread ? `<div class="msg-unread-dot"></div>` : ''}
-      </div>
-    </div>`;
-  }).join('');
-  updateMsgBadge(totalUnread);
+    div.innerHTML = '<div class="msg-convo-info"><div class="msg-convo-name">'+(c.name||'Unknown')+'</div>'
+      +'<div class="msg-convo-last">'+lastMsg+'</div></div>'
+      +'<div class="msg-convo-time">'+time+'</div>'
+      +(c.unread ? '<div class="msg-unread-badge">'+c.unread+'</div>' : '');
+    div.onclick = () => openChat(c.id, c.name, c.email);
+    list.appendChild(div);
+  });
 }
-
 function updateMsgBadge(count) {
   unreadCount = count;
   const btn = document.getElementById('msg-tb-btn');
@@ -1577,7 +1563,7 @@ function onYouTubeIframeAPIReady() {
     height:'1', width:'1',
     playerVars:{autoplay:1,controls:0,rel:0,iv_load_policy:3,playsinline:1},
     events:{
-      onReady: () => { ytReady = true; loadSaved(); },
+      onReady: () => { ytReady = true; loadSaved(); checkStartupLock(); renderHomeRecents(); },
       onStateChange: onYTState,
       onError: () => setTimeout(nextTrack, 1200)
     }
@@ -1698,7 +1684,7 @@ let onHomeScreen=true,sideTab='playlists';
 let lyricsMode=0,currentLyricLine=-1,lyricsTimer=null;
 let explicitFilter=false;
 let sleepTimer=null,isSleeping=false;
-let currentUser=null,accountLocked=false,lockPin='';
+let currentUser=null,accountLocked=false,lockPin=''; // lockPin/accountLocked kept for compat
 let customCovers={};
 let bgDataURL='';
 let sfState={mood:null,tempo:null,vibe:null,lyricHint:'',artistHint:''};
@@ -1936,7 +1922,7 @@ async function callClaudeAI(query){
   const nowPlaying=now?`Currently playing: "${now.title}" by ${PLAYLISTS[currentPlaylist].artist}`:'Nothing playing';
   try{
     const resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST',headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',max_tokens:300,
         system:`You are ZXY AI, a smart music assistant built into ZXYlisten music player. You can:
@@ -2031,7 +2017,7 @@ async function askAboutCurrentSong(){
   infoEl.textContent='Loading insights...';
   try{
     const resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST',headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',max_tokens:200,
         system:'You are a music expert. Give 2-3 interesting facts about the song in 2-3 short sentences. Be specific and enthusiastic. No markdown.',
@@ -3077,9 +3063,9 @@ function pinKey(d){
   if(lockInput.length>=8)return;
   lockInput+=d;
   updatePinDots();
+  const storedPin=currentUser?.lockPin||'';
   if(lockInput.length>=4&&(currentUser?.lockMethod==='pin'||(currentUser?.lockMethod==='both'&&!lockUsingPassword))){
-    // auto check after 4-8 digits based on stored pin length
-    if(lockInput.length===(currentUser?.lockPin||'').length){setTimeout(checkPinUnlock,120);}
+    if(storedPin.length>=4 && lockInput.length===storedPin.length){setTimeout(checkPinUnlock,150);}
   }
 }
 
@@ -3373,18 +3359,22 @@ function renderUsernameSearchResults(results){
   const el=document.createElement('div');
   el.id='username-search-results';
   el.style.cssText='background:rgba(8,3,20,.98);border:1px solid rgba(191,90,242,.2);border-radius:10px;overflow:hidden;margin-top:6px';
-  el.innerHTML=results.map(u=>`
-    <div style="display:flex;align-items:center;gap:9px;padding:9px 12px;cursor:pointer;transition:background .12s" onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background=''">
-      <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#bf5af2,#ff3757);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">${(u.name||'?')[0].toUpperCase()}</div>
-      <div style="flex:1;min-width:0">
-        <div style="font-size:11px;font-weight:600;color:#fff">${u.name||u.username}</div>
-        <div style="font-size:9px;color:rgba(255,255,255,.35)">@${u.username}</div>
-      </div>
-      <button onclick="sendFriendRequestToUser('${u.email}','${(u.name||'').replace(/'/g,"\\'")}','${(u.username||'').replace(/'/g,"\\'")}');this.textContent='✓ SENT';this.disabled=true" style="background:rgba(191,90,242,.18);border:1px solid rgba(191,90,242,.3);color:#bf5af2;font-family:'Orbitron',monospace;font-size:7px;letter-spacing:.5px;padding:5px 10px;border-radius:7px;cursor:pointer">ADD</button>
-    </div>`).join('');
+  results.forEach(u=>{
+    const row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;gap:9px;padding:9px 12px;cursor:pointer;transition:background .12s';
+    row.innerHTML='<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#bf5af2,#ff3757);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">'+((u.name||'?')[0].toUpperCase())+'</div>'
+      +'<div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600;color:#fff">'+(u.name||u.username)+'</div><div style="font-size:9px;color:rgba(255,255,255,.35)">@'+u.username+'</div></div>'
+      +'<button style="background:rgba(191,90,242,.18);border:1px solid rgba(191,90,242,.3);color:#bf5af2;font-family:Orbitron,monospace;font-size:7px;letter-spacing:.5px;padding:5px 10px;border-radius:7px;cursor:pointer">ADD</button>';
+    const btn=row.querySelector('button');
+    btn.onclick=()=>{
+      document.getElementById('nc-email').value=u.email;
+      sendFriendRequest();
+      btn.textContent='✓ SENT';btn.disabled=true;
+    };
+    el.appendChild(row);
+  });
   document.getElementById('msg-new-convo').appendChild(el);
 }
-
 function sendFriendRequestToUser(email,name,username){
   document.getElementById('nc-email').value=email;
   sendFriendRequest();
@@ -3441,8 +3431,6 @@ function closeAllPanels(){
 // ── INIT ──────────────────────────────────────────────────────────────
 setAppIcon();initCoverInputs();buildHomeSuggestions();buildList();renderHist();updateLogo();
 updateExplicitBtn();resetSleep();initFirebase();
-// Startup lock — show lock screen if user has a lock method set
-setTimeout(()=>{checkStartupLock();renderHomeRecents();},300);
 </script>
 </body>
 </html>
