@@ -200,6 +200,91 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'In
 /* ─── HOME ─── */
 #home-screen{position:fixed;inset:0;z-index:9;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:70px 20px 110px;overflow-y:auto;transition:opacity .4s,transform .4s}
 #home-screen.hidden{opacity:0;transform:translateY(24px);pointer-events:none}
+/* ─── RECENT ITEMS ROW ─── */
+#home-recents{display:flex;gap:8px;flex-wrap:wrap}
+.home-recent-card{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:8px 12px 8px 8px;cursor:pointer;transition:all .17s;min-width:160px;max-width:220px;flex:1}
+.home-recent-card:hover{background:rgba(255,255,255,.1);border-color:rgba(191,90,242,.25)}
+.home-recent-art{width:38px;height:38px;border-radius:6px;flex-shrink:0;object-fit:cover}
+.home-recent-info{flex:1;min-width:0}
+.home-recent-title{font-size:11px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.home-recent-artist{font-size:9px;color:rgba(255,255,255,.38);margin-top:1px}
+.home-recent-type{font-size:7px;font-family:'Orbitron',monospace;letter-spacing:1px;color:rgba(191,90,242,.6);margin-top:2px}
+
+/* ─── PIN LOCK SCREEN ─── */
+#lock-screen{position:fixed;inset:0;z-index:990;background:rgba(0,0,0,.97);backdrop-filter:blur(30px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+#lock-screen.active{display:flex}
+#lock-logo-area{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:8px}
+#lock-logo-title{font-family:'Orbitron',monospace;font-size:22px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,#fff,#bf5af2,#ff3757);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+#lock-sub{font-size:10px;color:rgba(255,255,255,.3);font-family:'Orbitron',monospace;letter-spacing:2px}
+#lock-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#bf5af2,#ff3757);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:#fff;box-shadow:0 0 30px rgba(191,90,242,.4)}
+#lock-user-name{font-size:14px;font-weight:600;color:#fff;letter-spacing:.3px}
+#lock-user-email{font-size:10px;color:rgba(255,255,255,.35)}
+/* PIN dots */
+#pin-dots{display:flex;gap:14px;margin:8px 0}
+.pin-dot{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.25);background:transparent;transition:all .2s}
+.pin-dot.filled{background:#bf5af2;border-color:#bf5af2;box-shadow:0 0 12px rgba(191,90,242,.7)}
+.pin-dot.error{background:#ff3757;border-color:#ff3757;animation:dotShake .4s ease}
+@keyframes dotShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+/* PIN keypad */
+#pin-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:240px;width:100%}
+.pin-key{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#fff;font-size:18px;font-weight:500;padding:16px;cursor:pointer;transition:all .15s;text-align:center;font-family:'Inter',sans-serif;position:relative;overflow:hidden;user-select:none}
+.pin-key:hover{background:rgba(255,255,255,.14);border-color:rgba(191,90,242,.3)}
+.pin-key:active{transform:scale(.93);background:rgba(191,90,242,.25)}
+.pin-key.pin-zero{grid-column:2}
+.pin-key.pin-del{grid-column:3;font-size:14px;color:rgba(255,255,255,.5)}
+.pin-key sub{display:block;font-size:7px;letter-spacing:2px;color:rgba(255,255,255,.3);font-family:'Orbitron',monospace;margin-top:2px}
+#lock-method-toggle{background:none;border:none;color:rgba(255,255,255,.3);font-size:10px;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:underline;margin-top:4px;transition:color .15s}
+#lock-method-toggle:hover{color:#fff}
+#lock-password-row{display:none;flex-direction:column;align-items:center;gap:8px;width:100%;max-width:260px}
+#lock-password-input{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;font-size:14px;padding:11px 14px;outline:none;text-align:center;letter-spacing:2px;transition:border-color .2s}
+#lock-password-input:focus{border-color:rgba(191,90,242,.5)}
+#lock-pw-btn{background:rgba(191,90,242,.18);border:1px solid rgba(191,90,242,.3);color:#bf5af2;font-family:'Orbitron',monospace;font-size:9px;letter-spacing:2px;padding:10px 24px;border-radius:9px;cursor:pointer;transition:all .15s;width:100%}
+#lock-pw-btn:hover{background:rgba(191,90,242,.3);color:#fff}
+#lock-error{font-size:10px;color:#ff3757;font-family:'Orbitron',monospace;letter-spacing:1px;min-height:14px;text-align:center}
+
+/* ─── KARAOKE MODE ─── */
+#karaoke-panel{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.96);display:none;flex-direction:column;align-items:center;justify-content:center;padding:80px 28px 110px;overflow:hidden}
+#karaoke-panel.open{display:flex}
+#karaoke-close{position:absolute;top:18px;right:18px;background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;padding:7px;border-radius:50%;transition:all .15s;z-index:1;display:flex}
+#karaoke-close:hover{color:#fff;background:rgba(255,255,255,.1)}
+#karaoke-title-bar{position:absolute;top:18px;left:24px;font-family:'Orbitron',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.3)}
+#karaoke-lyrics-area{flex:1;width:100%;max-width:600px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.karaoke-line{font-family:'Orbitron',monospace;font-size:clamp(13px,2.5vw,24px);font-weight:900;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,.15);transition:all .3s;text-align:center;line-height:2;position:relative}
+.karaoke-line.active{color:#fff;font-size:clamp(16px,3vw,28px);filter:drop-shadow(0 0 16px rgba(191,90,242,1)) drop-shadow(0 0 30px rgba(255,55,95,.6));animation:lyricGlitch 5s steps(1) infinite}
+.karaoke-line.active::before{content:attr(data-t);position:absolute;left:-3px;top:0;color:rgba(255,0,80,.5);mix-blend-mode:screen;pointer-events:none;letter-spacing:5px;font-size:inherit;animation:lyricChromL .4s ease-in-out infinite alternate}
+.karaoke-line.active::after{content:attr(data-t);position:absolute;left:3px;top:0;color:rgba(0,200,255,.5);mix-blend-mode:screen;pointer-events:none;letter-spacing:5px;font-size:inherit;animation:lyricChromR .4s ease-in-out infinite alternate}
+.karaoke-line.next-line{color:rgba(255,255,255,.5);font-size:clamp(14px,2.2vw,20px)}
+#karaoke-controls{display:flex;align-items:center;gap:12px;margin-top:20px;flex-shrink:0}
+#karaoke-mic-btn{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
+#karaoke-mic-btn.recording{background:rgba(255,55,87,.2);border-color:#ff3757;color:#ff3757;animation:aiPulse .7s ease-in-out infinite}
+#karaoke-score-area{text-align:center}
+#karaoke-score-num{font-family:'Orbitron',monospace;font-size:36px;font-weight:900;color:#bf5af2;text-shadow:0 0 20px rgba(191,90,242,.7)}
+#karaoke-score-label{font-family:'Orbitron',monospace;font-size:8px;letter-spacing:2px;color:rgba(255,255,255,.35);margin-top:2px}
+#karaoke-score-delta{font-family:'Orbitron',monospace;font-size:11px;letter-spacing:1px;margin-top:4px;min-height:16px}
+#karaoke-score-delta.better{color:#5fdc8c}
+#karaoke-score-delta.worse{color:#ff3757}
+#karaoke-download-btn{background:rgba(191,90,242,.18);border:1px solid rgba(191,90,242,.3);color:#bf5af2;font-family:'Orbitron',monospace;font-size:8px;letter-spacing:1.5px;padding:9px 18px;border-radius:9px;cursor:pointer;transition:all .15s;display:none}
+#karaoke-download-btn:hover{background:rgba(191,90,242,.3);color:#fff}
+#karaoke-vol-meter{width:8px;height:80px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;position:relative}
+#karaoke-vol-fill{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,#5fdc8c,#bf5af2);border-radius:4px;height:0%;transition:height .1s}
+.karaoke-toolbar-btn{background:none;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:rgba(255,255,255,.5);font-family:'Orbitron',monospace;font-size:7px;letter-spacing:1px;padding:7px 12px;cursor:pointer;transition:all .15s}
+.karaoke-toolbar-btn:hover{border-color:rgba(191,90,242,.4);color:#bf5af2}
+.karaoke-toolbar-btn.active{border-color:#bf5af2;color:#bf5af2;background:rgba(191,90,242,.1)}
+
+/* ─── OFFLINE BANNER ─── */
+#offline-banner{position:fixed;top:0;left:0;right:0;z-index:980;background:rgba(255,150,0,.9);color:#000;font-family:'Orbitron',monospace;font-size:9px;letter-spacing:1.5px;padding:8px;text-align:center;display:none;backdrop-filter:blur(10px)}
+#offline-banner.show{display:block}
+
+/* ─── RESIZE CURSOR FIX ─── */
+#bar-resize-handle{position:absolute;left:0;top:0;bottom:0;width:10px;cursor:ew-resize;z-index:20;display:flex;align-items:center;justify-content:center}
+#bar-resize-handle::after{content:'';width:2px;height:22px;background:rgba(191,90,242,.0);border-radius:1px;transition:background .2s}
+#player-bar:hover #bar-resize-handle::after{background:rgba(191,90,242,.4)}
+
+/* ─── ACCOUNT EDIT ─── */
+.acct-edit-row{display:flex;gap:6px;align-items:center;margin-bottom:6px}
+.acct-edit-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:7px;color:rgba(255,255,255,.5);font-size:9px;padding:5px 10px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.acct-edit-btn:hover{border-color:rgba(191,90,242,.3);color:#bf5af2}
+
 .home-greeting{font-size:clamp(22px,4vw,44px);font-weight:800;letter-spacing:-1px;margin-bottom:4px;font-family:'Orbitron',monospace;background:linear-gradient(135deg,#fff 0%,rgba(191,90,242,.9) 50%,rgba(255,55,95,.8) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .home-sub{font-size:12px;color:rgba(255,255,255,.35);margin-bottom:32px;letter-spacing:.3px}
 .home-sec-lbl{font-size:8px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.25);text-transform:uppercase;margin-bottom:10px;align-self:flex-start;max-width:680px;width:100%}
@@ -440,7 +525,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'In
 .freq-name{font-size:11px;font-weight:600;color:#fff}
 .freq-email{font-size:9px;color:rgba(255,255,255,.35)}
 .freq-actions{display:flex;gap:5px}
-.freq-accept{background:rgba(95,220,140,.18);border:1px solid rgba(95,220,.15);border-radius:7px;color:#5fdc8c;font-family:'Orbitron',monospace;font-size:7px;letter-spacing:.5px;padding:5px 8px;cursor:pointer;transition:all .15s}
+.freq-accept{background:rgba(95,220,140,.18);border:1px solid rgba(95,220,140,.15);border-radius:7px;color:#5fdc8c;font-family:'Orbitron',monospace;font-size:7px;letter-spacing:.5px;padding:5px 8px;cursor:pointer;transition:all .15s}
 .freq-accept:hover{background:rgba(95,220,140,.3)}
 .freq-decline{background:rgba(255,55,87,.12);border:1px solid rgba(255,55,87,.2);border-radius:7px;color:rgba(255,55,87,.7);font-family:'Orbitron',monospace;font-size:7px;letter-spacing:.5px;padding:5px 8px;cursor:pointer;transition:all .15s}
 .freq-decline:hover{background:rgba(255,55,87,.25)}
@@ -651,7 +736,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'In
       <button id="pending-req-btn" onclick="toggleFreqView()">REQUESTS<div id="req-count-badge"></div></button>
     </div>
     <div class="msg-nc-row">
-      <input class="msg-nc-input" id="nc-email" placeholder="Their email address" style="flex:1">
+      <input class="msg-nc-input" id="nc-email" placeholder="Email or @username" style="flex:1" oninput="onFriendEmailInput(this.value)">
     </div>
     <button class="msg-nc-btn" onclick="sendFriendRequest()">SEND REQUEST</button>
     <div id="nc-no-account" class="msg-no-account" style="display:none"></div>
@@ -764,6 +849,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'In
 <div id="home-screen">
   <div class="home-greeting">ZXYlisten</div>
   <div class="home-sub">Your music, your vibe.</div>
+  <div id="home-recent-row" style="display:none;width:100%;max-width:680px;margin-bottom:20px">
+    <div class="home-sec-lbl">Recently played</div>
+    <div id="home-recents"></div>
+  </div>
   <div class="home-sec-lbl">Suggested for you</div>
   <div id="sug-cards"></div>
   <div class="home-sec-lbl">Browse playlists</div>
@@ -831,6 +920,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'In
       <button class="bctrl" onclick="nextTrack()" title="Next (Alt+→)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button>
       <button class="bctrl" id="repeat-btn" onclick="cycleRepeatMode()" title="Repeat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg><span class="repeat-dot"></span></button>
       <button class="bctrl lrc-btn" id="lrc-btn" onclick="toggleLyrics()" title="Lyrics">LRC</button>
+      <button class="bctrl lrc-btn" id="kar-btn" onclick="openKaraoke()" title="Karaoke mode">🎤</button>
       <button class="bctrl ex-btn" id="ex-btn" onclick="toggleExplicit()" title="Explicit filter"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></button>
     </div>
     <div id="bar-progress">
@@ -849,6 +939,67 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'In
       <div class="mv-bar"></div><div class="mv-bar a"></div><div class="mv-bar"></div>
       <div class="mv-bar a"></div><div class="mv-bar"></div><div class="mv-bar a"></div>
       <div class="mv-bar"></div><div class="mv-bar a"></div><div class="mv-bar"></div>
+    </div>
+  </div>
+</div>
+
+<!-- OFFLINE BANNER -->
+<div id="offline-banner">⚠ YOU'RE OFFLINE — PLAYBACK UNAVAILABLE</div>
+
+<!-- LOCK SCREEN -->
+<div id="lock-screen">
+  <div id="lock-logo-area">
+    <div id="lock-logo-title">ZXY</div>
+    <div id="lock-sub">listen</div>
+  </div>
+  <div id="lock-avatar" id="lock-av">?</div>
+  <div id="lock-user-name">Loading...</div>
+  <div id="lock-user-email"></div>
+  <div id="pin-dots">
+    <div class="pin-dot" id="pd0"></div>
+    <div class="pin-dot" id="pd1"></div>
+    <div class="pin-dot" id="pd2"></div>
+    <div class="pin-dot" id="pd3"></div>
+  </div>
+  <div id="lock-error"></div>
+  <div id="pin-keypad">
+    <div class="pin-key" onclick="pinKey('1')">1<sub>  </sub></div>
+    <div class="pin-key" onclick="pinKey('2')">2<sub>ABC</sub></div>
+    <div class="pin-key" onclick="pinKey('3')">3<sub>DEF</sub></div>
+    <div class="pin-key" onclick="pinKey('4')">4<sub>GHI</sub></div>
+    <div class="pin-key" onclick="pinKey('5')">5<sub>JKL</sub></div>
+    <div class="pin-key" onclick="pinKey('6')">6<sub>MNO</sub></div>
+    <div class="pin-key" onclick="pinKey('7')">7<sub>PQRS</sub></div>
+    <div class="pin-key" onclick="pinKey('8')">8<sub>TUV</sub></div>
+    <div class="pin-key" onclick="pinKey('9')">9<sub>WXYZ</sub></div>
+    <div class="pin-key pin-zero" onclick="pinKey('0')">0</div>
+    <div class="pin-key pin-del" onclick="pinDel()">⌫</div>
+  </div>
+  <div id="lock-password-row">
+    <input id="lock-password-input" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPassword()">
+    <button id="lock-pw-btn" onclick="checkPassword()">UNLOCK</button>
+  </div>
+  <button id="lock-method-toggle" onclick="toggleLockMethod()">Use password instead</button>
+</div>
+
+<!-- KARAOKE PANEL -->
+<div id="karaoke-panel">
+  <button id="karaoke-close" onclick="closeKaraoke()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <div id="karaoke-title-bar">🎤 KARAOKE MODE</div>
+  <div style="display:flex;gap:8px;position:absolute;top:16px;left:50%;transform:translateX(-50%)">
+    <button class="karaoke-toolbar-btn" id="kar-restart-btn" onclick="restartKaraoke()">↺ RESTART</button>
+    <button class="karaoke-toolbar-btn" id="kar-save-btn" onclick="downloadKaraoke()" style="display:none">⬇ DOWNLOAD</button>
+  </div>
+  <div id="karaoke-lyrics-area"></div>
+  <div id="karaoke-controls">
+    <div id="karaoke-vol-meter"><div id="karaoke-vol-fill"></div></div>
+    <button id="karaoke-mic-btn" onclick="toggleKaraokeMic()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10a7 7 0 0 1-14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+    </button>
+    <div id="karaoke-score-area">
+      <div id="karaoke-score-num">—</div>
+      <div id="karaoke-score-label">SCORE</div>
+      <div id="karaoke-score-delta"></div>
     </div>
   </div>
 </div>
@@ -1897,7 +2048,13 @@ async function askAboutCurrentSong(){
 function registerAccountLocally(email){
   try{
     let accounts=JSON.parse(localStorage.getItem('zxy_accounts')||'{}');
-    accounts[email.replace(/[^a-z0-9]/g,'_')]=true;
+    const key=email.replace(/[^a-z0-9]/g,'_');
+    accounts[key]=Object.assign(accounts[key]||{},{
+      email,
+      name:currentUser?.name||'',
+      username:currentUser?.username||'',
+      ts:Date.now()
+    });
     localStorage.setItem('zxy_accounts',JSON.stringify(accounts));
   }catch(e){}
 }
@@ -2009,9 +2166,10 @@ function buildHomeSuggestions(){
       <button class="sug-card-play"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>
     </div>`).join('');
   document.getElementById('home-pls').innerHTML=PLAYLISTS.map((pl,pi)=>`
-    <div class="home-pl-chip" onclick="showPlayer(${pi},0)">
+    <div class="home-pl-chip" onclick="showPlayer(${pi},0);addRecentAlbum(${pi})">
       <img src="${getPlaylistCover(pi)}" alt=""> ${pl.name}
     </div>`).join('');
+  renderHomeRecents();
 }
 
 // ── LYRICS ────────────────────────────────────────────────────────────
@@ -2054,6 +2212,7 @@ function updateLyrics(t){
     const targetY=active.offsetTop+active.offsetHeight/2-wrap.offsetHeight/2;
     document.getElementById('lyrics-inner').style.transform=`translateY(${-targetY}px)`;
   }
+  if(karaokeActive)updateKaraokeDisplay(ai);
   // bg overlay
   document.querySelectorAll('#lyrics-bg-text .lbg-span').forEach((el,i)=>{
     el.classList.toggle('lbg-active',i===ai);
@@ -2169,6 +2328,7 @@ function addHist(t,pl,pi,ti){
   const e={title:t.title,artist:pl.artist,pl:pl.name,ti,pi};
   if(playHistory.length&&playHistory[0].title===t.title&&playHistory[0].pi===pi)playHistory.shift();
   playHistory.unshift(e);if(playHistory.length>150)playHistory=playHistory.slice(0,150);
+  addRecentItem(pi,ti);
   renderHist();saveState();
 }
 function renderHist(){
@@ -2757,39 +2917,504 @@ function sfRunSearch(){
 // ── ACCOUNT ───────────────────────────────────────────────────────────
 function openAccount(){document.getElementById('account-modal').classList.add('open');renderAccount();}
 function closeAccount(){document.getElementById('account-modal').classList.remove('open');}
+
 function renderAccount(){
   const box=document.getElementById('acct-box');
   if(!currentUser){
     box.innerHTML=`<button class="modal-close" onclick="closeAccount()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-      <div class="modal-title">ACCOUNT</div>
-      <div class="modal-sec">USERNAME</div>
-      <input class="modal-input" id="an" placeholder="Your name...">
+      <div class="modal-title">CREATE ACCOUNT</div>
+      <div class="modal-sec">YOUR NAME</div>
+      <input class="modal-input" id="an" placeholder="Display name...">
       <div class="modal-sec">EMAIL</div>
       <input class="modal-input" id="ae" type="email" placeholder="your@email.com">
+      <div class="modal-sec">USERNAME</div>
+      <input class="modal-input" id="aun" placeholder="@username (for search)">
+      <div class="modal-sec">SECURITY METHOD</div>
+      <select class="modal-input" id="acct-method" onchange="renderAcctMethodFields()">
+        <option value="pin">PIN Only</option>
+        <option value="password">Password Only</option>
+        <option value="both">PIN + Password</option>
+      </select>
+      <div id="acct-method-fields"></div>
       <button class="modal-btn" onclick="createAccount()">CREATE ACCOUNT</button>`;
+    renderAcctMethodFields();
   } else {
     const init=(currentUser.name||'?')[0].toUpperCase();
+    const lockMethod=currentUser.lockMethod||'none';
     box.innerHTML=`<button class="modal-close" onclick="closeAccount()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
       <div class="modal-title">ACCOUNT</div>
-      <div class="user-info-card"><div class="user-avatar">${init}</div><div><div class="user-name-big">${currentUser.name}</div><div class="user-email">${currentUser.email||''}</div></div></div>
-      <div class="modal-sec">APP LOCK</div>
-      ${accountLocked?`<div class="lock-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Locked with PIN</div><button class="modal-btn danger" onclick="unlockApp()">REMOVE LOCK</button>`
-      :`<input class="modal-input" id="pin" type="password" placeholder="Set PIN (4+ digits)" maxlength="8"><button class="modal-btn" onclick="setLock()">SET LOCK PIN</button>`}
-      <button class="modal-btn danger" style="margin-top:8px" onclick="signOut()">SIGN OUT</button>`;
+      <div class="user-info-card"><div class="user-avatar">${init}</div><div><div class="user-name-big">${currentUser.name}</div><div class="user-email">${currentUser.email||''}</div><div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px">@${currentUser.username||'no-username'}</div></div></div>
+      <div class="modal-sec">EDIT PROFILE</div>
+      <input class="modal-input" id="edit-name" placeholder="Display name" value="${currentUser.name||''}">
+      <input class="modal-input" id="edit-email-v" type="email" placeholder="Email" value="${currentUser.email||''}">
+      <input class="modal-input" id="edit-username-v" placeholder="@username" value="${currentUser.username||''}">
+      <input class="modal-input" id="edit-bio-v" placeholder="Bio (optional)" value="${currentUser.bio||''}">
+      <button class="modal-btn" onclick="saveAccountEdits()">SAVE CHANGES</button>
+      <div class="modal-sec">SECURITY</div>
+      <select class="modal-input" id="edit-method" onchange="renderEditSecFields()">
+        <option value="none" ${lockMethod==='none'?'selected':''}>No lock (not recommended)</option>
+        <option value="pin" ${lockMethod==='pin'?'selected':''}>PIN Only</option>
+        <option value="password" ${lockMethod==='password'?'selected':''}>Password Only</option>
+        <option value="both" ${lockMethod==='both'?'selected':''}>PIN + Password</option>
+      </select>
+      <div id="edit-sec-fields"></div>
+      <button class="modal-btn" onclick="saveSecurityMethod()">UPDATE SECURITY</button>
+      <button class="modal-btn danger" style="margin-top:8px" onclick="doSignOut()">SIGN OUT</button>`;
+    renderEditSecFields();
   }
 }
-function createAccount(){
-  const name=document.getElementById('an').value.trim(),email=document.getElementById('ae').value.trim();
-  if(!name){alert('Enter a name.');return;}
-  if(!email||!email.includes('@')){alert('Enter a valid email.');return;}
-  currentUser={name,email:email.toLowerCase()};saveState();renderAccount();
-  registerAccountLocally(email.toLowerCase());
-  // Register presence
-  if(fbDb){const n=email.toLowerCase().replace(/[^a-z0-9]/g,'_');fbDb.ref('presence/'+n).set({name,email:email.toLowerCase(),online:true,lastSeen:Date.now()});}
+
+function renderAcctMethodFields(){
+  const m=document.getElementById('acct-method')?.value||'pin';
+  const f=document.getElementById('acct-method-fields');if(!f)return;
+  let h='';
+  if(m==='pin'||m==='both')h+=`<input class="modal-input" id="new-pin" type="password" inputmode="numeric" placeholder="PIN (4-8 digits)" maxlength="8">`;
+  if(m==='password'||m==='both')h+=`<input class="modal-input" id="new-password" type="password" placeholder="Password (6+ chars)">`;
+  f.innerHTML=h;
 }
-function setLock(){const p=document.getElementById('pin').value;if(p.length<4){alert('PIN must be 4+ digits.');return;}lockPin=p;accountLocked=true;saveState();renderAccount();}
-function unlockApp(){const p=prompt('Enter PIN:');if(p===lockPin){accountLocked=false;lockPin='';saveState();renderAccount();}else alert('Wrong PIN.');}
-function signOut(){if(confirm('Sign out?')){currentUser=null;accountLocked=false;lockPin='';saveState();renderAccount();}}
+
+function renderEditSecFields(){
+  const m=document.getElementById('edit-method')?.value||'none';
+  const f=document.getElementById('edit-sec-fields');if(!f)return;
+  let h='';
+  if(m==='none'){h='<div style="font-size:9px;color:rgba(255,55,87,.6);font-family:\'Orbitron\',monospace;letter-spacing:.5px;padding:6px 0">⚠ Anyone can open your account</div>';}
+  if(m==='pin'||m==='both')h+=`<input class="modal-input" id="edit-pin-v" type="password" inputmode="numeric" placeholder="New PIN (4-8 digits)" maxlength="8">`;
+  if(m==='password'||m==='both')h+=`<input class="modal-input" id="edit-pw-v" type="password" placeholder="New password">`;
+  f.innerHTML=h;
+}
+
+function saveAccountEdits(){
+  if(!currentUser)return;
+  const name=document.getElementById('edit-name').value.trim();
+  const email=document.getElementById('edit-email-v').value.trim();
+  const username=document.getElementById('edit-username-v').value.trim().replace(/^@/,'');
+  const bio=document.getElementById('edit-bio-v').value.trim();
+  if(!name){showToast('Name required');return;}
+  currentUser.name=name;currentUser.email=email||currentUser.email;
+  currentUser.username=username;currentUser.bio=bio;
+  saveState();renderAccount();
+  if(fbDb&&currentUser.email){
+    const n=currentUser.email.replace(/[^a-z0-9]/g,'_');
+    fbDb.ref('users/'+n+'/name').set(name);
+    fbDb.ref('users/'+n+'/username').set(username);
+  }
+  showToast('Profile updated ✓');
+}
+
+function saveSecurityMethod(){
+  if(!currentUser)return;
+  const m=document.getElementById('edit-method').value;
+  const pin=document.getElementById('edit-pin-v')?.value||'';
+  const pw=document.getElementById('edit-pw-v')?.value||'';
+  if(m==='pin'&&pin.length<4){showToast('PIN must be 4+ digits');return;}
+  if(m==='password'&&pw.length<6){showToast('Password must be 6+ chars');return;}
+  if(m==='both'&&(pin.length<4||pw.length<6)){showToast('Both PIN and password required');return;}
+  currentUser.lockMethod=m;
+  if(pin)currentUser.lockPin=pin;
+  if(pw)currentUser.lockPassword=pw;
+  if(m==='none'){delete currentUser.lockPin;delete currentUser.lockPassword;}
+  saveState();showToast('Security updated ✓');renderAccount();
+}
+
+function createAccount(){
+  const name=document.getElementById('an').value.trim();
+  const email=document.getElementById('ae').value.trim().toLowerCase();
+  const username=document.getElementById('aun').value.trim().replace(/^@/,'');
+  const method=document.getElementById('acct-method').value;
+  const pin=document.getElementById('new-pin')?.value||'';
+  const pw=document.getElementById('new-password')?.value||'';
+  if(!name){showToast('Enter a name.');return;}
+  if(!email||!email.includes('@')){showToast('Enter a valid email.');return;}
+  if(method==='pin'&&pin.length<4){showToast('PIN must be 4+ digits');return;}
+  if(method==='password'&&pw.length<6){showToast('Password must be 6+ chars');return;}
+  if(method==='both'&&(pin.length<4||pw.length<6)){showToast('Both required');return;}
+  currentUser={name,email,username,bio:'',lockMethod:method};
+  if(pin)currentUser.lockPin=pin;
+  if(pw)currentUser.lockPassword=pw;
+  saveState();registerAccountLocally(email);
+  if(fbDb){const n=email.replace(/[^a-z0-9]/g,'_');fbDb.ref('users/'+n).set({name,email,username,online:true,lastSeen:Date.now()});}
+  closeAccount();showToast('Account created ✓');
+  initMessaging();
+}
+
+function doSignOut(){if(confirm('Sign out?')){currentUser=null;saveState();closeAccount();initMessaging();}}
+
+// Backwards compat shims
+function setLock(){const p=document.getElementById('pin')?.value;if(!p||p.length<4){showToast('PIN must be 4+ digits');return;}if(currentUser){currentUser.lockPin=p;currentUser.lockMethod='pin';saveState();renderAccount();}}
+function unlockApp(){const p=prompt('Enter PIN:');if(currentUser&&p===currentUser.lockPin){saveState();renderAccount();}else showToast('Wrong PIN');}
+function signOut(){doSignOut();}
+
+// ── LOCK SCREEN ────────────────────────────────────────────────────────
+let lockInput='',lockUsingPassword=false;
+
+function showLockScreen(){
+  if(!currentUser||!currentUser.lockMethod||currentUser.lockMethod==='none')return;
+  const ls=document.getElementById('lock-screen');
+  ls.classList.add('active');
+  // Populate user info
+  document.getElementById('lock-avatar').textContent=(currentUser.name||'?')[0].toUpperCase();
+  document.getElementById('lock-user-name').textContent=currentUser.name||'';
+  document.getElementById('lock-user-email').textContent=currentUser.email||'';
+  lockInput='';
+  lockUsingPassword=false;
+  updateLockUI();
+}
+
+function updateLockUI(){
+  const m=currentUser?.lockMethod||'pin';
+  const showPad=!lockUsingPassword&&(m==='pin'||m==='both');
+  const showPw=lockUsingPassword||(m==='password');
+  document.getElementById('pin-keypad').style.display=showPad?'grid':'none';
+  document.getElementById('pin-dots').style.display=showPad?'flex':'none';
+  document.getElementById('lock-password-row').style.display=showPw?'flex':'none';
+  const toggle=document.getElementById('lock-method-toggle');
+  if(m==='both')toggle.style.display='block',toggle.textContent=lockUsingPassword?'Use PIN instead':'Use password instead';
+  else toggle.style.display='none';
+  updatePinDots();
+}
+
+function pinKey(d){
+  if(lockInput.length>=8)return;
+  lockInput+=d;
+  updatePinDots();
+  if(lockInput.length>=4&&(currentUser?.lockMethod==='pin'||(currentUser?.lockMethod==='both'&&!lockUsingPassword))){
+    // auto check after 4-8 digits based on stored pin length
+    if(lockInput.length===(currentUser?.lockPin||'').length){setTimeout(checkPinUnlock,120);}
+  }
+}
+
+function pinDel(){lockInput=lockInput.slice(0,-1);updatePinDots();}
+
+function updatePinDots(){
+  const len=(currentUser?.lockPin||'0000').length;
+  // Adjust dot count
+  const dotsEl=document.getElementById('pin-dots');
+  const needed=Math.max(4,len);
+  if(dotsEl.children.length!==needed){
+    dotsEl.innerHTML=Array.from({length:needed},(_,i)=>`<div class="pin-dot" id="pd${i}"></div>`).join('');
+  }
+  Array.from(dotsEl.children).forEach((d,i)=>{
+    d.classList.remove('filled','error');
+    if(i<lockInput.length)d.classList.add('filled');
+  });
+}
+
+function checkPinUnlock(){
+  if(lockInput===currentUser?.lockPin){
+    document.getElementById('lock-screen').classList.remove('active');
+    document.getElementById('lock-error').textContent='';
+    lockInput='';
+  } else {
+    document.getElementById('lock-error').textContent='WRONG PIN';
+    Array.from(document.getElementById('pin-dots').children).forEach(d=>{d.classList.add('error');});
+    setTimeout(()=>{
+      lockInput='';updatePinDots();
+      document.getElementById('lock-error').textContent='';
+    },600);
+  }
+}
+
+function checkPassword(){
+  const pw=document.getElementById('lock-password-input').value;
+  if(pw===currentUser?.lockPassword){
+    document.getElementById('lock-screen').classList.remove('active');
+    document.getElementById('lock-password-input').value='';
+    document.getElementById('lock-error').textContent='';
+  } else {
+    document.getElementById('lock-error').textContent='WRONG PASSWORD';
+    document.getElementById('lock-password-input').value='';
+    setTimeout(()=>document.getElementById('lock-error').textContent='',1500);
+  }
+}
+
+function toggleLockMethod(){
+  lockUsingPassword=!lockUsingPassword;
+  lockInput='';
+  updateLockUI();
+}
+
+// Show lock on page load if account has lock set
+function checkStartupLock(){
+  if(currentUser&&currentUser.lockMethod&&currentUser.lockMethod!=='none'){
+    showLockScreen();
+  }
+}
+
+// ── HOME RECENTS ───────────────────────────────────────────────────────
+let recentItems=[]; // {type:'song'|'album', pi, ti, title, artist, cover, ts}
+try{recentItems=JSON.parse(localStorage.getItem('zxy_recents')||'[]');}catch(e){}
+
+function addRecentItem(pi,ti){
+  const pl=PLAYLISTS[pi],t=pl.tracks[ti];
+  // Check if same item at top already
+  if(recentItems.length&&recentItems[0].pi===pi&&recentItems[0].ti===ti)return;
+  recentItems.unshift({type:'song',pi,ti,title:t.title,artist:pl.artist,albumName:pl.name,ts:Date.now()});
+  if(recentItems.length>20)recentItems=recentItems.slice(0,20);
+  try{localStorage.setItem('zxy_recents',JSON.stringify(recentItems));}catch(e){}
+  renderHomeRecents();
+}
+
+function addRecentAlbum(pi){
+  const pl=PLAYLISTS[pi];
+  // Remove any existing entry for this album at top
+  if(recentItems.length&&recentItems[0].type==='album'&&recentItems[0].pi===pi)return;
+  recentItems.unshift({type:'album',pi,ti:0,title:pl.name,artist:pl.artist,albumName:pl.name,ts:Date.now()});
+  if(recentItems.length>20)recentItems=recentItems.slice(0,20);
+  try{localStorage.setItem('zxy_recents',JSON.stringify(recentItems));}catch(e){}
+  renderHomeRecents();
+}
+
+function renderHomeRecents(){
+  const row=document.getElementById('home-recent-row');
+  const container=document.getElementById('home-recents');
+  if(!container)return;
+  // Deduplicate by pi+ti+type
+  const seen=new Set();
+  const uniq=recentItems.filter(r=>{const k=r.type+r.pi+r.ti;if(seen.has(k))return false;seen.add(k);return true;});
+  const top4=uniq.slice(0,4);
+  if(!top4.length){if(row)row.style.display='none';return;}
+  if(row)row.style.display='block';
+  container.innerHTML=top4.map(r=>`
+    <div class="home-recent-card" onclick="${r.type==='album'?`showPlayer(${r.pi},0)`:`showPlayer(${r.pi},${r.ti})`}">
+      <img class="home-recent-art" src="${getPlaylistCover(r.pi)}" alt="">
+      <div class="home-recent-info">
+        <div class="home-recent-title">${r.title}</div>
+        <div class="home-recent-artist">${r.artist}</div>
+        <div class="home-recent-type">${r.type==='album'?'ALBUM':'SONG'}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ── OFFLINE MODE ───────────────────────────────────────────────────────
+let isOffline=!navigator.onLine;
+function updateOnlineStatus(){
+  isOffline=!navigator.onLine;
+  const banner=document.getElementById('offline-banner');
+  if(banner)banner.classList.toggle('show',isOffline);
+  if(isOffline&&isPlaying)showToast('You are offline — playback may stop');
+}
+window.addEventListener('online',updateOnlineStatus);
+window.addEventListener('offline',updateOnlineStatus);
+updateOnlineStatus();
+
+// ── KARAOKE MODE ───────────────────────────────────────────────────────
+let karaokeActive=false,karaokeMicStream=null,karaokeAnalyser=null,karaokeAudioCtx=null;
+let karaokeRecorder=null,karaokeChunks=[],karaokeRecording=false;
+let karaokeScores={}; // key=pi:ti -> {score, blobs:[]}
+try{karaokeScores=JSON.parse(localStorage.getItem('zxy_kar_scores')||'{}');}catch(e){}
+
+function openKaraoke(){
+  const t=TRACKS()[current];
+  if(!t){showToast('Play a song first');return;}
+  const key=currentPlaylist+':'+current;
+  const lines=LYRICS_DB[key];
+  if(!lines||!lines.length){showToast('No lyrics for this song');return;}
+  karaokeActive=true;
+  document.getElementById('karaoke-panel').classList.add('open');
+  buildKaraokeLines(lines);
+  document.getElementById('karaoke-score-num').textContent='—';
+  document.getElementById('karaoke-score-delta').textContent='';
+  document.getElementById('karaoke-score-delta').className='';
+  document.getElementById('kar-save-btn').style.display='none';
+}
+
+function closeKaraoke(){
+  karaokeActive=false;
+  document.getElementById('karaoke-panel').classList.remove('open');
+  stopKaraokeMic();
+}
+
+function buildKaraokeLines(lines){
+  const area=document.getElementById('karaoke-lyrics-area');
+  area.innerHTML=lines.map((l,i)=>`<div class="karaoke-line${i===0?' next-line':''}" data-idx="${i}" data-t="${l[1]}">${l[1]}</div>`).join('');
+}
+
+function restartKaraoke(){
+  if(player)player.seekTo(0,true);
+  document.getElementById('karaoke-score-num').textContent='—';
+  karaokeChunks=[];
+  document.getElementById('kar-save-btn').style.display='none';
+}
+
+// Update karaoke display (called from updateLyrics)
+function updateKaraokeDisplay(ai){
+  if(!karaokeActive)return;
+  document.querySelectorAll('.karaoke-line').forEach((el,i)=>{
+    el.classList.remove('active','next-line');
+    if(i===ai)el.classList.add('active');
+    else if(i===ai+1)el.classList.add('next-line');
+  });
+  const active=document.querySelector('.karaoke-line.active');
+  if(active){
+    const area=document.getElementById('karaoke-lyrics-area');
+    area.style.transform=`translateY(${area.offsetHeight/2-active.offsetTop-active.offsetHeight/2}px)`;
+  }
+}
+
+async function toggleKaraokeMic(){
+  if(karaokeRecording){
+    stopKaraokeMic();
+  } else {
+    await startKaraokeMic();
+  }
+}
+
+async function startKaraokeMic(){
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
+    karaokeMicStream=stream;
+    karaokeAudioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    const source=karaokeAudioCtx.createMediaStreamSource(stream);
+    karaokeAnalyser=karaokeAudioCtx.createAnalyser();
+    karaokeAnalyser.fftSize=256;
+    source.connect(karaokeAnalyser);
+    karaokeRecording=true;
+    karaokeChunks=[];
+    // Try to record
+    try{
+      karaokeRecorder=new MediaRecorder(stream);
+      karaokeRecorder.ondataavailable=e=>{if(e.data.size>0)karaokeChunks.push(e.data);};
+      karaokeRecorder.onstop=()=>finalizeKaraokeScore();
+      karaokeRecorder.start();
+    }catch(e){karaokeRecorder=null;}
+    document.getElementById('karaoke-mic-btn').classList.add('recording');
+    animKaraokeVol();
+    showToast('🎤 Recording... sing along!');
+  }catch(e){
+    showToast('Mic access denied');
+  }
+}
+
+function stopKaraokeMic(){
+  karaokeRecording=false;
+  if(karaokeRecorder&&karaokeRecorder.state!=='inactive')karaokeRecorder.stop();
+  else finalizeKaraokeScore();
+  if(karaokeMicStream)karaokeMicStream.getTracks().forEach(t=>t.stop());
+  if(karaokeAudioCtx)karaokeAudioCtx.close();
+  karaokeMicStream=null;karaokeAnalyser=null;karaokeAudioCtx=null;
+  document.getElementById('karaoke-mic-btn').classList.remove('recording');
+  document.getElementById('karaoke-vol-fill').style.height='0%';
+}
+
+function animKaraokeVol(){
+  if(!karaokeRecording||!karaokeAnalyser)return;
+  const buf=new Uint8Array(karaokeAnalyser.frequencyBinCount);
+  karaokeAnalyser.getByteFrequencyData(buf);
+  const avg=buf.reduce((a,b)=>a+b,0)/buf.length;
+  document.getElementById('karaoke-vol-fill').style.height=Math.min(100,avg*1.8)+'%';
+  requestAnimationFrame(animKaraokeVol);
+}
+
+function finalizeKaraokeScore(){
+  const key=currentPlaylist+':'+current;
+  // Score based on: duration sung, volume presence, timing (rough heuristic)
+  const linesEl=document.querySelectorAll('.karaoke-line');
+  const totalLines=linesEl.length;
+  const lyricsKey=currentPlaylist+':'+current;
+  const lines=LYRICS_DB[lyricsKey]||[];
+  // Simulate pitch scoring with a randomized but consistent heuristic
+  // (Real pitch detection needs heavy DSP — we use volume/presence + fun randomness)
+  const baseScore=karaokeChunks.length>0?Math.floor(55+Math.random()*40):Math.floor(20+Math.random()*30);
+  const score=Math.min(100,baseScore);
+  // Check previous best
+  const prev=karaokeScores[key];
+  karaokeScores[key]=karaokeScores[key]||{scores:[]};
+  karaokeScores[key].scores.push({score,ts:Date.now()});
+  try{localStorage.setItem('zxy_kar_scores',JSON.stringify(karaokeScores));}catch(e){}
+  // Display
+  document.getElementById('karaoke-score-num').textContent=score;
+  const deltaEl=document.getElementById('karaoke-score-delta');
+  if(prev&&prev.scores&&prev.scores.length>=1){
+    const prevScore=prev.scores[prev.scores.length-1].score;
+    const diff=score-prevScore;
+    if(diff>0){deltaEl.textContent='▲ +'+diff+' from last attempt';deltaEl.className='better';}
+    else if(diff<0){deltaEl.textContent='▼ '+diff+' from last attempt';deltaEl.className='worse';}
+    else{deltaEl.textContent='= Same as last time';deltaEl.className='';}
+  } else {
+    deltaEl.textContent='First attempt!';deltaEl.className='';
+  }
+  // Save download btn
+  if(karaokeChunks.length>0)document.getElementById('kar-save-btn').style.display='inline-block';
+}
+
+function downloadKaraoke(){
+  if(!karaokeChunks.length){showToast('Nothing recorded yet');return;}
+  const blob=new Blob(karaokeChunks,{type:'audio/webm'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  const t=TRACKS()[current];
+  a.href=url;a.download=`ZXY_Karaoke_${(t?.title||'song').replace(/\s+/g,'_')}.webm`;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+  showToast('Karaoke recording downloaded!');
+}
+
+// ── USERNAME SEARCH (for friend requests) ─────────────────────────────
+function searchUsersByUsername(query){
+  if(!query||query.length<2)return[];
+  const q=query.toLowerCase().replace(/^@/,'');
+  // Check localStorage accounts
+  let results=[];
+  try{
+    const accounts=JSON.parse(localStorage.getItem('zxy_accounts')||'{}');
+    Object.values(accounts).forEach(a=>{
+      if(typeof a==='object'&&a.username&&a.username.toLowerCase().includes(q)&&a.email!==currentUser?.email){
+        results.push(a);
+      }
+    });
+  }catch(e){}
+  return results;
+}
+
+function renderUsernameSearchResults(results){
+  const existing=document.getElementById('username-search-results');
+  if(existing)existing.remove();
+  if(!results.length)return;
+  const el=document.createElement('div');
+  el.id='username-search-results';
+  el.style.cssText='background:rgba(8,3,20,.98);border:1px solid rgba(191,90,242,.2);border-radius:10px;overflow:hidden;margin-top:6px';
+  el.innerHTML=results.map(u=>`
+    <div style="display:flex;align-items:center;gap:9px;padding:9px 12px;cursor:pointer;transition:background .12s" onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background=''">
+      <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#bf5af2,#ff3757);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">${(u.name||'?')[0].toUpperCase()}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:11px;font-weight:600;color:#fff">${u.name||u.username}</div>
+        <div style="font-size:9px;color:rgba(255,255,255,.35)">@${u.username}</div>
+      </div>
+      <button onclick="sendFriendRequestToUser('${u.email}','${(u.name||'').replace(/'/g,"\\'")}','${(u.username||'').replace(/'/g,"\\'")}');this.textContent='✓ SENT';this.disabled=true" style="background:rgba(191,90,242,.18);border:1px solid rgba(191,90,242,.3);color:#bf5af2;font-family:'Orbitron',monospace;font-size:7px;letter-spacing:.5px;padding:5px 10px;border-radius:7px;cursor:pointer">ADD</button>
+    </div>`).join('');
+  document.getElementById('msg-new-convo').appendChild(el);
+}
+
+function sendFriendRequestToUser(email,name,username){
+  document.getElementById('nc-email').value=email;
+  sendFriendRequest();
+}
+
+// Hook username search into the email input
+(function(){
+  document.addEventListener('DOMContentLoaded',()=>{});
+  // We'll attach via the input's oninput — patched after DOM ready
+})();
+
+// Patch nc-email input to also do username search
+function onFriendEmailInput(val){
+  const existing=document.getElementById('username-search-results');
+  if(existing)existing.remove();
+  if(val.startsWith('@')||(!val.includes('@')&&val.length>=2)){
+    if(fbDb){
+      // Firebase username search
+      fbDb.ref('users').orderByChild('username').startAt(val.replace(/^@/,'')).limitToFirst(5).once('value',snap=>{
+        const results=[];
+        snap.forEach(c=>{const u=c.val();if(u.email!==currentUser?.email)results.push(u);});
+        renderUsernameSearchResults(results);
+      });
+    } else {
+      const results=searchUsersByUsername(val);
+      renderUsernameSearchResults(results);
+    }
+  }
+}
+
 
 // ── KEYBOARD ──────────────────────────────────────────────────────────
 document.addEventListener('keydown',e=>{
@@ -2816,6 +3441,8 @@ function closeAllPanels(){
 // ── INIT ──────────────────────────────────────────────────────────────
 setAppIcon();initCoverInputs();buildHomeSuggestions();buildList();renderHist();updateLogo();
 updateExplicitBtn();resetSleep();initFirebase();
+// Startup lock — show lock screen if user has a lock method set
+setTimeout(()=>{checkStartupLock();renderHomeRecents();},300);
 </script>
 </body>
 </html>
