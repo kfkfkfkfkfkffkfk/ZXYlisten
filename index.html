@@ -676,6 +676,97 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'In
   #bar-artist{display:none}
   .bctrl.lrc-btn{display:none}
 }
+
+/* ─── CREATOR PORTAL ─── */
+#creator-modal{display:none;position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.92);backdrop-filter:blur(24px);align-items:center;justify-content:center;padding:16px}
+#creator-modal.open{display:flex}
+#creator-box{background:rgba(8,3,20,.99);border:1px solid rgba(191,90,242,.25);border-radius:20px;width:min(700px,96vw);max-height:92vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 100px rgba(191,90,242,.15),0 0 0 .5px rgba(255,255,255,.06);animation:popIn .28s cubic-bezier(.16,1,.3,1)}
+#creator-header{display:flex;align-items:center;gap:12px;padding:18px 22px 14px;border-bottom:1px solid rgba(255,255,255,.07);flex-shrink:0}
+#creator-logo-wrap{width:44px;height:44px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,#bf5af2,#ff3757);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px;cursor:pointer;position:relative}
+#creator-logo-wrap img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:50%}
+#creator-logo-wrap:hover::after{content:'📷';position:absolute;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;font-size:16px;border-radius:50%}
+#creator-profile-name{font-size:16px;font-weight:700;color:#fff;cursor:pointer}
+#creator-profile-name:hover{color:#bf5af2}
+#creator-profile-badge{font-family:'Orbitron',monospace;font-size:7px;letter-spacing:2px;color:#bf5af2;background:rgba(191,90,242,.12);border:1px solid rgba(191,90,242,.3);padding:2px 8px;border-radius:10px;margin-left:4px}
+#creator-header-right{margin-left:auto;display:flex;gap:6px;align-items:center}
+.creator-tab-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.45);font-family:'Orbitron',monospace;font-size:8px;letter-spacing:1.5px;padding:6px 12px;border-radius:8px;cursor:pointer;transition:all .15s}
+.creator-tab-btn:hover{background:rgba(255,255,255,.12);color:#fff}
+.creator-tab-btn.active{background:rgba(191,90,242,.18);border-color:rgba(191,90,242,.4);color:#bf5af2}
+#creator-close{background:none;border:none;color:rgba(255,255,255,.35);cursor:pointer;padding:6px;border-radius:50%;display:flex;transition:all .15s;margin-left:4px}
+#creator-close:hover{color:#fff;background:rgba(255,255,255,.1)}
+
+#creator-body{flex:1;overflow-y:auto;padding:20px 22px 22px}
+#creator-body::-webkit-scrollbar{width:3px}
+#creator-body::-webkit-scrollbar-thumb{background:rgba(191,90,242,.3);border-radius:2px}
+
+/* Profile Setup */
+#creator-setup-section{display:none;flex-direction:column;gap:16px}
+#creator-setup-section.active{display:flex}
+.creator-section-title{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.5);margin-bottom:8px;text-transform:uppercase}
+.creator-input{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:10px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;padding:10px 14px;outline:none;transition:border-color .2s;margin-bottom:8px}
+.creator-input:focus{border-color:rgba(191,90,242,.55)}
+.creator-input::placeholder{color:rgba(255,255,255,.22)}
+.creator-btn{background:rgba(191,90,242,.18);border:1px solid rgba(191,90,242,.35);color:#bf5af2;font-family:'Orbitron',monospace;font-size:9px;letter-spacing:2px;padding:10px 18px;border-radius:10px;cursor:pointer;transition:all .15s;margin-top:4px}
+.creator-btn:hover{background:rgba(191,90,242,.32);color:#fff}
+.creator-btn.accent{background:linear-gradient(135deg,rgba(191,90,242,.35),rgba(255,55,87,.25));border-color:rgba(191,90,242,.5);color:#fff}
+.creator-btn.accent:hover{background:linear-gradient(135deg,rgba(191,90,242,.55),rgba(255,55,87,.4))}
+.creator-btn.danger{background:rgba(255,55,87,.1);border-color:rgba(255,55,87,.3);color:rgba(255,87,87,.9)}
+.creator-btn.danger:hover{background:rgba(255,55,87,.25);color:#fff}
+
+/* Avatar picker */
+#creator-avatar-row{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+#creator-avatar-big{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#bf5af2,#ff3757);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;cursor:pointer;position:relative;overflow:hidden;border:2px solid rgba(191,90,242,.4)}
+#creator-avatar-big img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:50%}
+#creator-avatar-big:hover::after{content:'Change Photo';position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-family:'Orbitron',monospace;letter-spacing:1px;border-radius:50%}
+#creator-avatar-file{display:none}
+
+/* Albums section */
+#creator-albums-section{display:none;flex-direction:column;gap:14px}
+#creator-albums-section.active{display:flex}
+.creator-album-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;display:flex;gap:12px;align-items:flex-start;transition:border-color .15s}
+.creator-album-card:hover{border-color:rgba(191,90,242,.25)}
+.creator-album-cover{width:60px;height:60px;border-radius:9px;flex-shrink:0;object-fit:cover;background:rgba(255,255,255,.06);cursor:pointer;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center}
+.creator-album-cover img{width:100%;height:100%;object-fit:cover}
+.creator-album-cover:hover::after{content:'📷';position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;font-size:18px;border-radius:9px}
+.creator-album-info{flex:1;min-width:0}
+.creator-album-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:2px}
+.creator-album-meta{font-size:10px;color:rgba(255,255,255,.35);margin-bottom:8px}
+.creator-album-tracks-list{display:flex;flex-direction:column;gap:3px;margin-bottom:8px}
+.creator-track-row{display:flex;align-items:center;gap:8px;padding:5px 8px;background:rgba(255,255,255,.03);border-radius:6px;font-size:11px;color:rgba(255,255,255,.7)}
+.creator-track-row:hover{background:rgba(255,255,255,.07)}
+.creator-track-num{font-size:9px;color:rgba(255,255,255,.25);min-width:16px}
+.creator-track-title{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.creator-track-del{background:none;border:none;color:rgba(255,80,80,.4);cursor:pointer;padding:2px 5px;font-size:12px;border-radius:4px;transition:all .15s}
+.creator-track-del:hover{color:rgba(255,80,80,.9);background:rgba(255,55,87,.1)}
+.creator-album-actions{display:flex;gap:6px;flex-wrap:wrap}
+.creator-album-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.55);font-family:'Orbitron',monospace;font-size:7px;letter-spacing:1px;padding:5px 10px;border-radius:6px;cursor:pointer;transition:all .15s}
+.creator-album-btn:hover{background:rgba(191,90,242,.14);border-color:rgba(191,90,242,.3);color:#bf5af2}
+.creator-album-del-btn{border-color:rgba(255,55,87,.2);color:rgba(255,87,87,.5)}
+.creator-album-del-btn:hover{background:rgba(255,55,87,.14);border-color:rgba(255,55,87,.4);color:rgba(255,87,87,.9)}
+#creator-add-album-row{display:flex;justify-content:center}
+
+/* Add song modal */
+#add-song-modal{display:none;position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.92);backdrop-filter:blur(16px);align-items:center;justify-content:center;padding:16px}
+#add-song-modal.open{display:flex}
+#add-song-box{background:rgba(8,3,20,.99);border:1px solid rgba(191,90,242,.25);border-radius:16px;padding:24px;width:min(480px,95vw);max-height:88vh;overflow-y:auto;animation:popIn .22s ease}
+#add-song-box::-webkit-scrollbar{width:3px}
+#add-song-box::-webkit-scrollbar-thumb{background:rgba(191,90,242,.2)}
+.iframe-type-toggle{display:flex;gap:6px;margin-bottom:12px}
+.iframe-type-btn{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.45);font-family:'Orbitron',monospace;font-size:8px;letter-spacing:1px;padding:8px;border-radius:8px;cursor:pointer;transition:all .15s;text-align:center}
+.iframe-type-btn.active{background:rgba(191,90,242,.18);border-color:rgba(191,90,242,.4);color:#bf5af2}
+.iframe-preview-wrap{width:100%;border-radius:10px;overflow:hidden;margin-bottom:12px;background:rgba(255,255,255,.03);min-height:80px;display:flex;align-items:center;justify-content:center}
+.iframe-preview-wrap iframe{width:100%;border:none;border-radius:10px}
+#song-iframe-hint{font-size:9px;color:rgba(255,255,255,.28);font-family:'Orbitron',monospace;letter-spacing:1px;text-align:center;padding:10px}
+
+/* Add album modal */
+#add-album-modal{display:none;position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.92);backdrop-filter:blur(16px);align-items:center;justify-content:center;padding:16px}
+#add-album-modal.open{display:flex}
+#add-album-box{background:rgba(8,3,20,.99);border:1px solid rgba(191,90,242,.25);border-radius:16px;padding:24px;width:min(440px,95vw);animation:popIn .22s ease}
+.album-cover-picker{width:90px;height:90px;border-radius:12px;background:rgba(255,255,255,.06);border:2px dashed rgba(191,90,242,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;position:relative;flex-shrink:0;transition:border-color .15s}
+.album-cover-picker:hover{border-color:rgba(191,90,242,.7)}
+.album-cover-picker img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:10px}
+.album-cover-picker-label{font-size:9px;color:rgba(191,90,242,.7);font-family:'Orbitron',monospace;letter-spacing:1px;margin-top:6px}
+#add-album-cover-file{display:none}
 </style>
 </head>
 <body>
@@ -810,6 +901,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'In
     <button class="tb-btn" onclick="toggleQueue()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg><span>Queue</span></button>
     <button class="tb-btn notif" id="msg-tb-btn" onclick="toggleMsgPanel()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Messages</span></button>
     <button class="tb-btn" onclick="openAccount()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Account</span></button>
+    <button class="tb-btn" id="creator-tb-btn" onclick="openCreatorPortal()" style="background:linear-gradient(135deg,rgba(191,90,242,.18),rgba(255,55,87,.12));border-color:rgba(191,90,242,.35);color:#bf5af2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg><span>Creator</span></button>
     <button class="tb-btn" onclick="openQuiz()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6" stroke-width="2.5"/></svg><span>Finder</span></button>
     <button class="tb-btn" onclick="document.getElementById('bg-file').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>BG</span></button>
     <input type="file" id="bg-file" accept="image/*">
@@ -1078,6 +1170,123 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'In
 <!-- QUIZ MODAL -->
 <div class="modal-ov" id="quiz-modal" onclick="if(event.target===this)closeQuiz()">
   <div class="modal-box" id="quiz-box"></div>
+</div>
+
+<!-- CREATOR PORTAL MODAL -->
+<div id="creator-modal" onclick="if(event.target===this)closeCreatorPortal()">
+  <div id="creator-box">
+    <div id="creator-header">
+      <div id="creator-logo-wrap" onclick="triggerCreatorAvatarPick()" title="Change profile photo">
+        <span id="creator-avatar-emoji">🎵</span>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span id="creator-name-display" style="font-size:15px;font-weight:700;color:#fff">Your Creator Profile</span>
+          <span id="creator-profile-badge">CREATOR</span>
+        </div>
+        <div id="creator-handle-display" style="font-size:10px;color:rgba(255,255,255,.35);margin-top:2px">Set up your profile to get started</div>
+      </div>
+      <div id="creator-header-right">
+        <button class="creator-tab-btn active" id="ctab-profile" onclick="switchCreatorTab('profile')">PROFILE</button>
+        <button class="creator-tab-btn" id="ctab-albums" onclick="switchCreatorTab('albums')">ALBUMS</button>
+        <button id="creator-close" onclick="closeCreatorPortal()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+    </div>
+    <div id="creator-body">
+      <!-- PROFILE TAB -->
+      <div id="creator-setup-section" class="active">
+        <div>
+          <div class="creator-section-title">Your Profile</div>
+          <div id="creator-avatar-row">
+            <div id="creator-avatar-big" onclick="triggerCreatorAvatarPick()" title="Upload profile photo">
+              <span id="creator-avatar-emoji-big">🎵</span>
+            </div>
+            <input type="file" id="creator-avatar-file" accept="image/*">
+            <div style="flex:1">
+              <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:8px;font-family:'Orbitron',monospace;letter-spacing:1px">PROFILE PHOTO</div>
+              <button class="creator-btn" onclick="triggerCreatorAvatarPick()" style="font-size:8px;padding:7px 14px">UPLOAD PHOTO</button>
+            </div>
+          </div>
+          <input class="creator-input" id="creator-name-input" placeholder="Artist / Creator name" maxlength="50">
+          <input class="creator-input" id="creator-handle-input" placeholder="@handle (e.g. @yourname)" maxlength="30">
+          <textarea class="creator-input" id="creator-bio-input" placeholder="Your bio — tell listeners about yourself..." rows="3" style="resize:vertical;min-height:70px"></textarea>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="creator-btn accent" onclick="saveCreatorProfile()" style="flex:1">SAVE PROFILE</button>
+        </div>
+        <div id="creator-profile-saved" style="display:none;text-align:center;font-family:'Orbitron',monospace;font-size:9px;color:#3ddc84;letter-spacing:2px">✓ PROFILE SAVED</div>
+      </div>
+
+      <!-- ALBUMS TAB -->
+      <div id="creator-albums-section">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div class="creator-section-title" style="margin-bottom:0">Your Albums</div>
+          <button class="creator-btn" onclick="openAddAlbumModal()" style="font-size:8px;padding:7px 14px">+ NEW ALBUM</button>
+        </div>
+        <div id="creator-albums-list"></div>
+        <div id="creator-albums-empty" style="text-align:center;padding:30px 0;font-family:'Orbitron',monospace;font-size:9px;color:rgba(255,255,255,.2);letter-spacing:1px;line-height:2.5">No albums yet.<br>Create your first album to add songs.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD ALBUM MODAL -->
+<div id="add-album-modal" onclick="if(event.target===this)closeAddAlbumModal()">
+  <div id="add-album-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+      <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:900;letter-spacing:2px">NEW ALBUM</div>
+      <button onclick="closeAddAlbumModal()" style="background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:16px;padding:4px">✕</button>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:14px">
+      <div class="album-cover-picker" id="add-album-cover-btn" onclick="document.getElementById('add-album-cover-file').click()">
+        <span id="add-album-cover-emoji" style="font-size:28px">🎵</span>
+        <div class="album-cover-picker-label">COVER ART</div>
+        <input type="file" id="add-album-cover-file" accept="image/*">
+      </div>
+      <div style="flex:1">
+        <input class="creator-input" id="new-album-name" placeholder="Album name" maxlength="60">
+        <input class="creator-input" id="new-album-year" placeholder="Year (e.g. 2024)" maxlength="4" style="margin-bottom:0">
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button class="creator-btn accent" onclick="confirmAddAlbum()" style="flex:1">CREATE ALBUM</button>
+      <button class="creator-btn" onclick="closeAddAlbumModal()" style="flex:1">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD SONG MODAL -->
+<div id="add-song-modal" onclick="if(event.target===this)closeAddSongModal()">
+  <div id="add-song-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div>
+        <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:900;letter-spacing:2px">ADD SONG</div>
+        <div id="add-song-album-label" style="font-size:9px;color:rgba(191,90,242,.7);font-family:'Orbitron',monospace;letter-spacing:1px;margin-top:3px"></div>
+      </div>
+      <button onclick="closeAddSongModal()" style="background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:16px;padding:4px">✕</button>
+    </div>
+    <input class="creator-input" id="new-song-title" placeholder="Song title" maxlength="80">
+    <div class="creator-section-title" style="margin-bottom:8px">AUDIO SOURCE</div>
+    <div class="iframe-type-toggle">
+      <div class="iframe-type-btn active" id="src-spotify" onclick="setSongSrcType('spotify')">🎵 Spotify</div>
+      <div class="iframe-type-btn" id="src-youtube" onclick="setSongSrcType('youtube')">▶ YouTube</div>
+    </div>
+    <div id="song-src-spotify" style="display:block">
+      <input class="creator-input" id="spotify-url-input" placeholder="Paste Spotify track URL or embed link" oninput="previewSongEmbed()">
+      <div style="font-size:9px;color:rgba(255,255,255,.25);margin-bottom:10px;font-family:'Orbitron',monospace;letter-spacing:.5px">e.g. https://open.spotify.com/track/... or iframe embed code</div>
+    </div>
+    <div id="song-src-youtube" style="display:none">
+      <input class="creator-input" id="youtube-url-input" placeholder="Paste YouTube video URL or ID" oninput="previewSongEmbed()">
+      <div style="font-size:9px;color:rgba(255,255,255,.25);margin-bottom:10px;font-family:'Orbitron',monospace;letter-spacing:.5px">e.g. https://youtube.com/watch?v=... — audio only, no video shown</div>
+    </div>
+    <div class="iframe-preview-wrap" id="song-embed-preview">
+      <div id="song-iframe-hint">Paste a link above to preview</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button class="creator-btn accent" onclick="confirmAddSong()" style="flex:1">ADD SONG</button>
+      <button class="creator-btn" onclick="closeAddSongModal()" style="flex:1">CANCEL</button>
+    </div>
+  </div>
 </div>
 
 <!-- COVER PICKER MODAL -->
@@ -2692,10 +2901,37 @@ function smartPickNext(){
 
 // ── PLAY ──────────────────────────────────────────────────────────────
 function play(i){
-  if(!ytReady||!player||typeof player.loadVideoById!=='function')return;
   current=i;if(shuffling){const qi=shuffleQueue.indexOf(i);if(qi>-1)shufflePos=qi;}
   const pl=PLAYLISTS[currentPlaylist],t=pl.tracks[i];
   const k=currentPlaylist+':'+i;trackPlayCounts[k]=(trackPlayCounts[k]||0)+1;
+
+  // ── Spotify creator track ──
+  if(t&&t.id&&t.id.startsWith('__spotify__')){
+    maybeInjectSpotifyPlayer(t);
+    // stop YouTube if playing
+    try{if(player&&typeof player.stopVideo==='function')player.stopVideo();}catch(e){}
+    isPlaying=true;
+    // Update UI with what we have
+    document.getElementById('track-name-big').textContent=t.title;
+    document.getElementById('track-artist-big').textContent=pl.artist;
+    document.getElementById('bar-title').textContent=t.title;
+    document.getElementById('bar-artist').textContent=pl.artist;
+    document.getElementById('bar-mini-title').textContent=t.title;
+    document.getElementById('t-dur').textContent='—';
+    document.getElementById('t-cur').textContent='0:00';
+    document.getElementById('panel-np-title').textContent=t.title;
+    document.getElementById('panel-np-sub').textContent='Track '+t.n+' · '+pl.name;
+    document.querySelectorAll('.track').forEach((el,j)=>el.classList.toggle('active',j===i));
+    document.getElementById('tr'+i)?.scrollIntoView({block:'nearest',behavior:'smooth'});
+    updateStarBtn();buildLyrics(currentPlaylist,i);addHist(t,pl,currentPlaylist,i);
+    updateSpm();updateLogo();
+    return;
+  }
+
+  if(!ytReady||!player||typeof player.loadVideoById!=='function')return;
+  // Close any spotify player
+  const sp=document.getElementById('zxy-spotify-player');if(sp)sp.remove();
+
   player.loadVideoById(getVid(t));
   document.getElementById('track-name-big').textContent=t.title;
   document.getElementById('track-artist-big').textContent=pl.artist;
@@ -3334,6 +3570,413 @@ function downloadKaraoke(){
   setTimeout(()=>URL.revokeObjectURL(url),2000);
   showToast('Karaoke recording downloaded!');
 }
+
+// ══════════════════════════════════════════════════════════════════════
+// ── CREATOR PORTAL ────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════
+
+let creatorProfile = null;  // {name, handle, bio, avatarDataURL}
+let creatorAlbums  = [];    // [{id, name, year, coverDataURL, tracks:[{title, srcType, embedURL, embedCode}]}]
+let editingAlbumId = null;  // which album we're adding a song to
+let newAlbumCoverDataURL = null;
+let currentSongSrcType = 'spotify';
+
+function loadCreatorData(){
+  try{
+    const p=localStorage.getItem('zxy_creator_profile');
+    if(p) creatorProfile=JSON.parse(p);
+    const a=localStorage.getItem('zxy_creator_albums');
+    if(a) creatorAlbums=JSON.parse(a);
+  }catch(e){creatorProfile=null;creatorAlbums=[];}
+}
+function saveCreatorData(){
+  try{
+    if(creatorProfile) localStorage.setItem('zxy_creator_profile',JSON.stringify(creatorProfile));
+    localStorage.setItem('zxy_creator_albums',JSON.stringify(creatorAlbums));
+  }catch(e){}
+}
+
+function openCreatorPortal(){
+  loadCreatorData();
+  document.getElementById('creator-modal').classList.add('open');
+  renderCreatorHeader();
+  switchCreatorTab('profile');
+}
+function closeCreatorPortal(){
+  document.getElementById('creator-modal').classList.remove('open');
+}
+
+function switchCreatorTab(tab){
+  document.querySelectorAll('.creator-tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ctab-'+tab).classList.add('active');
+  document.getElementById('creator-setup-section').classList.toggle('active', tab==='profile');
+  document.getElementById('creator-albums-section').classList.toggle('active', tab==='albums');
+  if(tab==='profile') populateCreatorProfileForm();
+  if(tab==='albums')  renderCreatorAlbumsList();
+}
+
+function renderCreatorHeader(){
+  const p=creatorProfile;
+  document.getElementById('creator-name-display').textContent = p?.name || 'Your Creator Profile';
+  document.getElementById('creator-handle-display').textContent = p?.handle ? '@'+p.handle.replace(/^@/,'') : 'Set up your profile to get started';
+  if(p?.avatarDataURL){
+    const wrap=document.getElementById('creator-logo-wrap');
+    wrap.innerHTML='<img src="'+p.avatarDataURL+'" alt=""><span id="creator-avatar-emoji" style="display:none"></span>';
+    const big=document.getElementById('creator-avatar-big');
+    if(big){big.innerHTML='<img src="'+p.avatarDataURL+'" alt=""><span id="creator-avatar-emoji-big" style="display:none"></span>';}
+  }
+}
+
+function populateCreatorProfileForm(){
+  const p=creatorProfile||{};
+  document.getElementById('creator-name-input').value   = p.name||'';
+  document.getElementById('creator-handle-input').value = p.handle||'';
+  document.getElementById('creator-bio-input').value    = p.bio||'';
+  document.getElementById('creator-profile-saved').style.display='none';
+  if(p.avatarDataURL){
+    const big=document.getElementById('creator-avatar-big');
+    big.innerHTML='<img src="'+p.avatarDataURL+'" alt=""><span id="creator-avatar-emoji-big" style="display:none"></span>';
+  }
+}
+
+function triggerCreatorAvatarPick(){
+  document.getElementById('creator-avatar-file').click();
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const af=document.getElementById('creator-avatar-file');
+  if(af) af.addEventListener('change',e=>{
+    const f=e.target.files[0];if(!f)return;
+    const r=new FileReader();
+    r.onload=ev=>{
+      const url=ev.target.result;
+      // Update preview
+      const big=document.getElementById('creator-avatar-big');
+      big.innerHTML='<img src="'+url+'" alt=""><span id="creator-avatar-emoji-big" style="display:none"></span>';
+      const wrap=document.getElementById('creator-logo-wrap');
+      wrap.innerHTML='<img src="'+url+'" alt=""><span id="creator-avatar-emoji" style="display:none"></span>';
+      // Store pending
+      if(!creatorProfile) creatorProfile={};
+      creatorProfile.avatarDataURL=url;
+    };
+    r.readAsDataURL(f);
+    af.value='';
+  });
+});
+
+function saveCreatorProfile(){
+  const name   = document.getElementById('creator-name-input').value.trim();
+  const handle = document.getElementById('creator-handle-input').value.trim().replace(/^@/,'');
+  const bio    = document.getElementById('creator-bio-input').value.trim();
+  if(!name){showToast('Enter your creator name!');return;}
+  creatorProfile = Object.assign(creatorProfile||{}, {name, handle, bio});
+  saveCreatorData();
+  renderCreatorHeader();
+  document.getElementById('creator-profile-saved').style.display='block';
+  setTimeout(()=>{ document.getElementById('creator-profile-saved').style.display='none'; },2500);
+  showToast('Creator profile saved ✓');
+}
+
+// ── ALBUM MANAGEMENT ──────────────────────────────────────────────────
+function openAddAlbumModal(){
+  newAlbumCoverDataURL=null;
+  document.getElementById('new-album-name').value='';
+  document.getElementById('new-album-year').value=new Date().getFullYear();
+  document.getElementById('add-album-cover-emoji').textContent='🎵';
+  document.getElementById('add-album-cover-btn').innerHTML=
+    '<span id="add-album-cover-emoji" style="font-size:28px">🎵</span>'
+    +'<div class="album-cover-picker-label">COVER ART</div>'
+    +'<input type="file" id="add-album-cover-file" accept="image/*">';
+  document.getElementById('add-album-cover-file').addEventListener('change',e=>{
+    const f=e.target.files[0];if(!f)return;
+    const r=new FileReader();r.onload=ev=>{
+      newAlbumCoverDataURL=ev.target.result;
+      const btn=document.getElementById('add-album-cover-btn');
+      btn.innerHTML='<img src="'+ev.target.result+'" alt="" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:10px"><input type="file" id="add-album-cover-file" accept="image/*">';
+      btn.querySelector('input').addEventListener('change',arguments.callee.caller);
+    };r.readAsDataURL(f);e.target.value='';
+  });
+  document.getElementById('add-album-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('new-album-name').focus(),200);
+}
+function closeAddAlbumModal(){
+  document.getElementById('add-album-modal').classList.remove('open');
+  newAlbumCoverDataURL=null;
+}
+function confirmAddAlbum(){
+  const name=(document.getElementById('new-album-name').value||'').trim();
+  const year=(document.getElementById('new-album-year').value||'').trim();
+  if(!name){showToast('Enter album name');return;}
+  const album={
+    id: Date.now()+'_'+Math.random().toString(36).slice(2),
+    name, year: year||new Date().getFullYear().toString(),
+    coverDataURL: newAlbumCoverDataURL||null,
+    tracks:[]
+  };
+  creatorAlbums.push(album);
+  saveCreatorData();
+  closeAddAlbumModal();
+  renderCreatorAlbumsList();
+  showToast('Album "'+name+'" created ✓');
+  // Also add to PLAYLISTS so it's playable
+  injectCreatorAlbumToPlaylists(album);
+}
+
+function deleteCreatorAlbum(albumId){
+  if(!confirm('Delete this album and all its songs?'))return;
+  creatorAlbums=creatorAlbums.filter(a=>a.id!==albumId);
+  saveCreatorData();
+  renderCreatorAlbumsList();
+  rebuildCreatorPlaylists();
+  showToast('Album deleted');
+}
+
+function renderCreatorAlbumsList(){
+  const list=document.getElementById('creator-albums-list');
+  const empty=document.getElementById('creator-albums-empty');
+  if(!creatorAlbums.length){list.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  list.innerHTML=creatorAlbums.map(album=>{
+    const coverSrc=album.coverDataURL
+      ? `<img src="${album.coverDataURL}" alt="">`
+      : `<div style="font-size:22px;display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,rgba(191,90,242,.3),rgba(255,55,87,.2))">🎵</div>`;
+    const tracksHTML=album.tracks.map((t,i)=>`
+      <div class="creator-track-row">
+        <span class="creator-track-num">${i+1}</span>
+        <span class="creator-track-title">${t.title||'Untitled'}</span>
+        <span style="font-size:8px;color:rgba(255,255,255,.2);font-family:Orbitron,monospace;letter-spacing:.5px">${t.srcType==='spotify'?'🎵':'▶'}</span>
+        <button class="creator-track-del" onclick="deleteCreatorTrack('${album.id}',${i})" title="Remove">✕</button>
+      </div>`).join('');
+    return `<div class="creator-album-card">
+      <div class="creator-album-cover">${coverSrc}</div>
+      <div class="creator-album-info">
+        <div class="creator-album-name">${album.name}</div>
+        <div class="creator-album-meta">${album.year} · ${album.tracks.length} song${album.tracks.length!==1?'s':''}</div>
+        <div class="creator-album-tracks-list">${tracksHTML}</div>
+        <div class="creator-album-actions">
+          <button class="creator-album-btn" onclick="openAddSongModal('${album.id}')">+ ADD SONG</button>
+          <button class="creator-album-btn creator-album-del-btn" onclick="deleteCreatorAlbum('${album.id}')">🗑 DELETE</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function deleteCreatorTrack(albumId, trackIdx){
+  const album=creatorAlbums.find(a=>a.id===albumId);
+  if(!album)return;
+  album.tracks.splice(trackIdx,1);
+  saveCreatorData();
+  renderCreatorAlbumsList();
+  rebuildCreatorPlaylists();
+  showToast('Song removed');
+}
+
+// ── SONG MANAGEMENT ───────────────────────────────────────────────────
+function openAddSongModal(albumId){
+  editingAlbumId=albumId;
+  const album=creatorAlbums.find(a=>a.id===albumId);
+  document.getElementById('add-song-album-label').textContent='TO: '+((album?.name)||'').toUpperCase();
+  document.getElementById('new-song-title').value='';
+  document.getElementById('spotify-url-input').value='';
+  document.getElementById('youtube-url-input').value='';
+  document.getElementById('song-embed-preview').innerHTML='<div id="song-iframe-hint">Paste a link above to preview</div>';
+  currentSongSrcType='spotify';
+  setSongSrcType('spotify');
+  document.getElementById('add-song-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('new-song-title').focus(),200);
+}
+function closeAddSongModal(){
+  document.getElementById('add-song-modal').classList.remove('open');
+  editingAlbumId=null;
+}
+
+function setSongSrcType(type){
+  currentSongSrcType=type;
+  document.getElementById('src-spotify').classList.toggle('active',type==='spotify');
+  document.getElementById('src-youtube').classList.toggle('active',type==='youtube');
+  document.getElementById('song-src-spotify').style.display=type==='spotify'?'block':'none';
+  document.getElementById('song-src-youtube').style.display=type==='youtube'?'block':'none';
+  document.getElementById('song-embed-preview').innerHTML='<div id="song-iframe-hint">Paste a link above to preview</div>';
+}
+
+function extractSpotifyTrackId(input){
+  input=input.trim();
+  // Already an embed iframe?
+  const srcMatch=input.match(/src="([^"]+)"/);
+  if(srcMatch) return srcMatch[1];
+  // spotify.com/track/ID
+  const trackMatch=input.match(/spotify\.com\/(?:[a-z-]+\/)?track\/([A-Za-z0-9]+)/);
+  if(trackMatch) return 'https://open.spotify.com/embed/track/'+trackMatch[1]+'?utm_source=generator';
+  // Already an embed URL
+  if(input.includes('open.spotify.com/embed')) return input;
+  return null;
+}
+function extractYoutubeId(input){
+  input=input.trim();
+  // Full URL
+  const ytMatch=input.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([A-Za-z0-9_-]{11})/);
+  if(ytMatch) return ytMatch[1];
+  // Raw ID (11 chars)
+  if(/^[A-Za-z0-9_-]{11}$/.test(input)) return input;
+  return null;
+}
+
+function previewSongEmbed(){
+  const preview=document.getElementById('song-embed-preview');
+  if(currentSongSrcType==='spotify'){
+    const url=document.getElementById('spotify-url-input').value;
+    const embedSrc=extractSpotifyTrackId(url);
+    if(embedSrc){
+      preview.innerHTML=`<iframe src="${embedSrc}" width="100%" height="80" frameborder="0" allow="autoplay;clipboard-write;encrypted-media;fullscreen;picture-in-picture" loading="lazy" style="border-radius:10px"></iframe>`;
+    } else {
+      preview.innerHTML='<div id="song-iframe-hint" style="padding:10px;font-size:9px;color:rgba(255,255,255,.28);font-family:Orbitron,monospace;text-align:center">Paste a Spotify track URL above</div>';
+    }
+  } else {
+    const url=document.getElementById('youtube-url-input').value;
+    const ytId=extractYoutubeId(url);
+    if(ytId){
+      // Audio only - use YouTube nocookie embed with no visuals shown (hidden in the UI)
+      preview.innerHTML=`<div style="display:flex;align-items:center;gap:10px;padding:12px;background:rgba(255,0,0,.07);border-radius:10px;border:1px solid rgba(255,55,55,.18)">
+        <div style="font-size:22px">▶</div>
+        <div><div style="font-size:11px;color:#fff;font-weight:600;margin-bottom:2px">YouTube Audio Ready</div>
+        <div style="font-size:9px;color:rgba(255,255,255,.4);font-family:Orbitron,monospace;letter-spacing:.5px">ID: ${ytId} · Audio only playback</div></div>
+      </div>`;
+    } else {
+      preview.innerHTML='<div id="song-iframe-hint" style="padding:10px;font-size:9px;color:rgba(255,255,255,.28);font-family:Orbitron,monospace;text-align:center">Paste a YouTube URL above</div>';
+    }
+  }
+}
+
+function confirmAddSong(){
+  const title=(document.getElementById('new-song-title').value||'').trim();
+  if(!title){showToast('Enter a song title');return;}
+  let embedURL='', embedCode='';
+  if(currentSongSrcType==='spotify'){
+    const raw=document.getElementById('spotify-url-input').value.trim();
+    const src=extractSpotifyTrackId(raw);
+    if(!src){showToast('Enter a valid Spotify URL');return;}
+    embedURL=src;
+  } else {
+    const raw=document.getElementById('youtube-url-input').value.trim();
+    const ytId=extractYoutubeId(raw);
+    if(!ytId){showToast('Enter a valid YouTube URL');return;}
+    embedURL='https://www.youtube.com/embed/'+ytId+'?autoplay=1&enablejsapi=1';
+    embedCode=ytId; // store just the ID for the player
+  }
+  const album=creatorAlbums.find(a=>a.id===editingAlbumId);
+  if(!album)return;
+  album.tracks.push({title, srcType:currentSongSrcType, embedURL, embedCode});
+  saveCreatorData();
+  closeAddSongModal();
+  renderCreatorAlbumsList();
+  // Inject into PLAYLISTS for playback
+  rebuildCreatorPlaylists();
+  showToast('"'+title+'" added to '+album.name+' ✓');
+}
+
+// ── INJECT CREATOR ALBUMS INTO PLAYLISTS ──────────────────────────────
+// Creator albums appear in the main PLAYLISTS array so they can be played
+const CREATOR_PLAYLIST_OFFSET = 1000; // creator albums start at index 1000
+
+function injectCreatorAlbumToPlaylists(album){
+  // Find if already present
+  const idx=PLAYLISTS.findIndex(p=>p._creatorId===album.id);
+  const pl=buildPlaylistFromAlbum(album);
+  if(idx>=0){PLAYLISTS[idx]=pl;}
+  else{PLAYLISTS.push(pl);}
+  buildSidebarBody();
+  buildHomeSuggestions();
+}
+
+function rebuildCreatorPlaylists(){
+  // Remove all creator playlists first
+  for(let i=PLAYLISTS.length-1;i>=0;i--){
+    if(PLAYLISTS[i]._isCreator) PLAYLISTS.splice(i,1);
+  }
+  // Re-add all current creator albums
+  creatorAlbums.forEach(album=>{
+    PLAYLISTS.push(buildPlaylistFromAlbum(album));
+  });
+  buildSidebarBody();
+  buildHomeSuggestions();
+  buildList();
+}
+
+function buildPlaylistFromAlbum(album){
+  const p=creatorProfile||{};
+  return {
+    _isCreator:true,
+    _creatorId:album.id,
+    id: PLAYLISTS.length+999,
+    name: album.name,
+    artist: p.name||'Creator',
+    year: album.year||'2024',
+    short: (album.name||'?').slice(0,4).toUpperCase(),
+    cover: ()=>album.coverDataURL||getPresetCoverSVG(7),
+    artistImg: ()=>p.avatarDataURL||getPresetCoverSVG(0),
+    explicit:false,
+    wordBank:[album.name.toUpperCase()],
+    tracks: album.tracks.map((t,i)=>({
+      n: i+1,
+      title: t.title,
+      // For spotify: use the iframe embed URL as a special marker
+      // For YouTube: use the video ID directly (existing player handles it)
+      id: t.srcType==='spotify' ? '__spotify__'+encodeURIComponent(t.embedURL) : (t.embedCode||t.embedURL.match(/embed\/([A-Za-z0-9_-]{11})/)?.[1]||''),
+      dur: '—',
+      explicit:false,
+      _srcType: t.srcType,
+      _embedURL: t.embedURL,
+    }))
+  };
+}
+
+// ── SPOTIFY PLAYBACK SUPPORT ───────────────────────────────────────────
+// When a creator track with srcType=spotify is played, inject a spotify iframe
+function maybeInjectSpotifyPlayer(track){
+  if(!track||!track.id||!track.id.startsWith('__spotify__')) return false;
+  const embedURL=decodeURIComponent(track.id.replace('__spotify__',''));
+  let sp=document.getElementById('zxy-spotify-player');
+  if(!sp){
+    sp=document.createElement('div');
+    sp.id='zxy-spotify-player';
+    sp.style.cssText='position:fixed;bottom:105px;left:50%;transform:translateX(-50%);z-index:500;border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.8);animation:popIn .3s ease;width:min(380px,94vw)';
+    document.body.appendChild(sp);
+  }
+  sp.innerHTML=`
+    <div style="background:rgba(8,3,20,.98);border:1px solid rgba(30,215,96,.3);border-radius:14px;overflow:hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px 0;background:rgba(30,215,96,.07)">
+        <div style="font-family:Orbitron,monospace;font-size:8px;letter-spacing:2px;color:rgba(30,215,96,.8)">▶ SPOTIFY PLAYER</div>
+        <button onclick="document.getElementById('zxy-spotify-player').remove()" style="background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:14px;padding:2px">✕</button>
+      </div>
+      <iframe src="${embedURL}" width="100%" height="152" frameborder="0" allow="autoplay;clipboard-write;encrypted-media;fullscreen;picture-in-picture" loading="lazy"></iframe>
+    </div>`;
+  return true;
+}
+
+// Patch showPlayer to handle Spotify creator tracks
+const _origShowPlayer = typeof showPlayer === 'function' ? showPlayer : null;
+
+// Hook into track loading — check after player tries to load
+const _origLoadTrack = typeof loadTrack === 'function' ? loadTrack : null;
+
+// We'll intercept by overriding the playback start:
+// The existing code calls player.loadVideoById(track.id) — for spotify tracks, we intercept
+// by watching for the special prefix in playTrack/showPlayer
+
+// Simpler approach: patch the buildList / playback to detect __spotify__ IDs
+// and show the Spotify iframe widget instead
+(function patchSpotifyPlayback(){
+  // After page loads, patch loadTrack or the YouTube player loader
+  // We need to intercept when a spotify track is "played"
+  // The main entry is showPlayer(pi, ti) or selectTrack(i)
+  window._zxySpotifyPatched=true;
+})();
+
+// Load creator data on init
+(function(){
+  loadCreatorData();
+  if(creatorAlbums.length) rebuildCreatorPlaylists();
+})();
 
 // ── USERNAME SEARCH (for friend requests) ─────────────────────────────
 function searchUsersByUsername(query){
